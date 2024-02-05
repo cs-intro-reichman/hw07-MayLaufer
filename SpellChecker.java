@@ -39,8 +39,11 @@ public class SpellChecker {
 			levenshtein(tail(word1), tail(word2));
 		}
 
-		minimum = Math.min(levenshtein(tail(word1), word2), levenshtein(word1, tail(word2)));
-		minimum = Math.min(minimum, levenshtein(tail(word1), tail(word2)));
+		int condition1 = levenshtein(tail(word1), word2);
+		int condition2 = levenshtein(word1, tail(word2));
+		int condition3 = levenshtein(tail(word1), tail(word2));
+
+		minimum = Math.min(condition3, Math.min(condition1, condition2));
 
 		return 1 + minimum;
 	}
