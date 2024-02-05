@@ -11,11 +11,38 @@ public class SpellChecker {
 	}
 
 	public static String tail(String str) {
-		// Your code goes here
+		String strTail = str.substring(1);
+		return strTail;
+	}
+
+	public static String head(String str) {
+		String strHead = str.substring(0, 1);
+		return strHead;
 	}
 
 	public static int levenshtein(String word1, String word2) {
-		// Your code goes here
+		// so it won't affect the edit distance
+		word1 = word1.toLowerCase(); 
+		word2 = word2.toLowerCase();
+
+		int minimum;
+
+		if (word2.length() == 0) {
+			return 0;
+		}
+
+		if (word1.length() == 0) {
+			return 0;
+		}
+
+		if (head(word1).equals(head(word2))) {
+			levenshtein(tail(word1), tail(word2));
+		}
+
+		minimum = Math.min(levenshtein(tail(word1), word2), levenshtein(word1, tail(word2)));
+		minimum = Math.min(minimum, levenshtein(tail(word1), tail(word2)));
+
+		return 1 + minimum;
 	}
 
 	public static String[] readDictionary(String fileName) {
@@ -23,13 +50,29 @@ public class SpellChecker {
 
 		In in = new In(fileName);
 
-		// Your code here
-
+		for (int i =  0; i < dictionary.length; i++) {
+			String word = in.readLine();
+			dictionary[i] = word;
+		}
+	
 		return dictionary;
 	}
 
 	public static String spellChecker(String word, int threshold, String[] dictionary) {
-		// Your code goes here
+		int minDistance = word.length();
+		String similarWord = word;
+		for (int i = 0; i < dictionary.length; i++) {
+			if (levenshtein(word, dictionary[i]) < minDistance) {
+				minDistance = levenshtein(word, dictionary[i]);
+				similarWord = dictionary[i];
+			}
+		}
+
+		if (minDistance > threshold) {
+			similarWord = word;
+		}
+
+		return similarWord;
 	}
 
 }
