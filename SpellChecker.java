@@ -25,8 +25,6 @@ public class SpellChecker {
 		word1 = word1.toLowerCase(); 
 		word2 = word2.toLowerCase();
 
-		int minimum;
-
 		if (word2.isEmpty()) {
 			return word1.length();
 		}
@@ -43,9 +41,7 @@ public class SpellChecker {
 		int condition2 = levenshtein(word1, tail(word2));
 		int condition3 = levenshtein(tail(word1), tail(word2));
 
-		minimum = Math.min(condition3, Math.min(condition1, condition2));
-
-		return 1 + minimum;
+		return 1 + Math.min(condition3, Math.min(condition1, condition2));
 	}
 
 	public static String[] readDictionary(String fileName) {
