@@ -27,12 +27,12 @@ public class SpellChecker {
 
 		int minimum;
 
-		if (word2.length() == 0) {
-			return 0;
+		if (word2.isEmpty()) {
+			return word1.length();
 		}
 
-		if (word1.length() == 0) {
-			return 0;
+		if (word1.isEmpty()) {
+			return word2.length();
 		}
 
 		if (head(word1).equals(head(word2))) {
