@@ -34,7 +34,7 @@ public class SpellChecker {
 		}
 
 		if (head(word1).equals(head(word2))) {
-			levenshtein(tail(word1), tail(word2));
+			return levenshtein(tail(word1), tail(word2));
 		}
 
 		int condition1 = levenshtein(tail(word1), word2);
